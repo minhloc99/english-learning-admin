@@ -31,7 +31,32 @@ export const signInConfig = {
 };
 
 export const signUpConfig = {
-    layout: {},
+    layout: {
+        firstName: Object.assign(new VinaControl(), {
+            id: "firstName",
+            type: "text",
+            name: "firstName",
+            label: "First name"
+        }),
+        lastName: Object.assign(new VinaControl(), {
+            id: "lastName",
+            type: "text",
+            name: "lastName",
+            label: "Last name"
+        }),
+        email: Object.assign(new VinaControl(), {
+            id: "email",
+            type: "text",
+            name: "email",
+            label: "Email"
+        }),
+        password: Object.assign(new VinaControl(), {
+            id: "password",
+            type: "password",
+            name: "password",
+            label: "Password"
+        })
+    },
     validationSchema: Object.assign(new VinaSignUp(), {
         firstName: Yup.string()
             .max(15, "Must be 15 characters or less")

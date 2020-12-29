@@ -1,8 +1,10 @@
 import React from 'react';
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -12,6 +14,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { signUpConfig } from '../../config/formConfigs';
+import { VinaText } from '../common/VinaControls';
 
 function Copyright() {
   return (
@@ -48,6 +52,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const formik = useFormik({
+    initialValues: signUpConfig.initialValues,
+    validationSchema: Yup.object(signUpConfig.validationSchema),
+    onSubmit: (values) => {
+      console.log(formik);
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,52 +71,47 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={formik.handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
+              <VinaText
                 variant="outlined"
-                required
+                autoComplete="fname"
                 fullWidth
-                id="firstName"
-                label="First Name"
                 autoFocus
+                {...signUpConfig.layout.firstName}
+                {...formik.getFieldProps(signUpConfig.layout.firstName.id)}
+                formik={formik}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <VinaText
                 variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
                 autoComplete="lname"
+                fullWidth
+                {...signUpConfig.layout.lastName}
+                {...formik.getFieldProps(signUpConfig.layout.lastName.id)}
+                formik={formik}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <VinaText
                 variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
                 autoComplete="email"
+                fullWidth
+                {...signUpConfig.layout.email}
+                {...formik.getFieldProps(signUpConfig.layout.email.id)}
+                formik={formik}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <VinaText
                 variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
                 autoComplete="current-password"
+                fullWidth
+                {...signUpConfig.layout.password}
+                {...formik.getFieldProps(signUpConfig.layout.password.id)}
+                formik={formik}
               />
             </Grid>
             <Grid item xs={12}>
