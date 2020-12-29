@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { signInConfig } from '../../config/formConfigs';
-import { VinaText } from "../common/MaterialControls"
+import { VinaText } from "../common/VinaControls"
 
 
 function Copyright() {
