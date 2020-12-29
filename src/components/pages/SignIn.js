@@ -1,8 +1,10 @@
 import React from 'react';
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -12,6 +14,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { signInConfig } from '../../config/formConfigs';
+import { VinaText } from "../common/MaterialControls"
+
 
 function Copyright() {
   return (
@@ -48,6 +53,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const formik = useFormik({
+    initialValues: signInConfig.initialValues,
+    validationSchema: Yup.object(signInConfig.validationSchema),
+    onSubmit: (values) => {
+      console.log(formik);
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,28 +72,25 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
+        <form className={classes.form} onSubmit={formik.handleSubmit} noValidate>
+          <VinaText
             variant="outlined"
             margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
             autoComplete="email"
+            fullWidth
             autoFocus
+            {...signInConfig.layout.email}
+            {...formik.getFieldProps(signInConfig.layout.email.id)}
+            formik={formik}
           />
-          <TextField
+          <VinaText
             variant="outlined"
             margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
             autoComplete="current-password"
+            fullWidth
+            {...signInConfig.layout.password}
+            {...formik.getFieldProps(signInConfig.layout.password.id)}
+            formik={formik}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
