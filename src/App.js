@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from './components/pages/SignIn';
 import SignUp from './components/pages/SignUp';
 import ScrollToTop from './components/common/ScrollToTop';
+import Scheduler from "./components/pages/Scheduler";
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <div>Welcome home</div>
+            </Route>
+            <Route exact path="/scheduler">
+              <Scheduler />
             </Route>
             <Route exact path="/signin">
               <SignIn />
