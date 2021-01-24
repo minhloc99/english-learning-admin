@@ -67,7 +67,7 @@ export function VinaCheckbox(props) { }
 
 export function VinaSelect(props) {
     return (
-        <FormControl error={hasErrors(props)}>
+        <FormControl variant="outlined" className={props.className} error={hasErrors(props)}>
             <InputLabel id={props.id + "-label"}>{props.label}</InputLabel>
             <Select labelId={props.id + "-label"} {...props}>
                 {props.options.map((item, index) => {
@@ -81,4 +81,15 @@ export function VinaSelect(props) {
             <FormHelperText>{getErrorMessage(props)}</FormHelperText>
         </FormControl>
     );
+}
+
+export function VinaDateTimePicker(props) {
+    return <TextField
+        {...props}
+        helperText={getErrorMessage(props)}
+        error={hasErrors(props)}
+        InputLabelProps={{
+            shrink: true,
+        }}
+    />
 }

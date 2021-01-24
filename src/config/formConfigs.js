@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { VinaSignIn, VinaSignUp, VinaControl } from "../model/ViewModels";
+import { VinaSignIn, VinaSignUp, VinaControl, ExecutedLesson } from "../model/ViewModels";
 
 export const signInConfig = {
     layout: {
@@ -75,5 +75,37 @@ export const signUpConfig = {
         lastName: "",
         email: "",
         password: ""
+    }),
+};
+
+export const ExecutedLessonFormConfig = {
+    layout: {
+        planStartDateTime: Object.assign(new VinaControl(), {
+            id: "planStartDateTime",
+            type: "datetime-local",
+            name: "planStartDateTime",
+            label: "Start at:"
+        }),
+        planEndDateTime: Object.assign(new VinaControl(), {
+            id: "planEndDateTime",
+            type: "datetime-local",
+            name: "planEndDateTime",
+            label: "Finish at:"
+        }),
+        templateLessonId: Object.assign(new VinaControl(), {
+            id: "templateLessonId",
+            name: "templateLessonId",
+            label: "Template Lesson",
+            options: []
+        })
+    },
+    validationSchema: Object.assign(new ExecutedLesson(), {
+        templateLessonId: Yup.string()
+            .required("Required"),
+    }),
+    initialValues: Object.assign(new ExecutedLesson(), {
+        templateLessonId: "",
+        planStartDateTime: "",
+        planEndDateTime: ""
     }),
 };
